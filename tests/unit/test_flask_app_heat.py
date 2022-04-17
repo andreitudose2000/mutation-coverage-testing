@@ -38,7 +38,7 @@ def test_add_temps_200(tester):
 
 
 def test_add_temps_400_missing_body(tester):
-    response = tester.post("/heat/", follow_redirects=True)
+    response = tester.post("/heat/", json={}, follow_redirects=True)
     assert response.status_code == 400
     assert json.loads(response.data) == {"message": "Lipseste body"}
 
