@@ -1,0 +1,7 @@
+coverage==6.3
+Flask-MQTT==1.1.1
+pytest==6.2.5
+setuptools==60.5.0
+tomli==2.0.0
+virtualenv==20.13.0
+mutmut==2.4.0

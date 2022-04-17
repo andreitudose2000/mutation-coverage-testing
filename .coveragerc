@@ -1,0 +1,11 @@
+[run]
+command_line=-m pytest
+omit=
+    flask_app/config.py
+    tests/*
+    mqtt/*
+
+[report]
+precision=2
+show_missing=True
+skip_empty=True
