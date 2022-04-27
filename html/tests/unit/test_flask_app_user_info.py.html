@@ -1,0 +1,232 @@
+<html><body><h1>tests/unit/test_flask_app_user_info.py</h1>Killed 52 out of 73 mutants<h2>Survived</h2>Survived mutation testing. These mutants show holes in your test suite.<h3>Mutant 614</h3><pre>--- tests/unit/test_flask_app_user_info.py
++++ tests/unit/test_flask_app_user_info.py
+@@ -10,7 +10,7 @@
+ @pytest.fixture()
+ def tester():
+     # creez un fisier nou temporar .sqlite unde va fi stocata baza de date
+-    db_fd, dbfile = tempfile.mkstemp(suffix=".sqlite")
++    db_fd, dbfile = tempfile.mkstemp(suffix="XX.sqliteXX")
+     app = create_app("flask_configurations.TestingConfig", db_file=dbfile)
+ 
+     # returnez clientul tester cu setarea de mai sus
+</pre><h3>Mutant 619</h3><pre>--- tests/unit/test_flask_app_user_info.py
++++ tests/unit/test_flask_app_user_info.py
+@@ -23,7 +23,6 @@
+     # sterg fisierul de pe disk
+     os.unlink(app.config['DATABASE'])
+ 
+-@pytest.mark.skip
+ def add_one_row_to_db(tester):
+     post_data = {
+         "user_height": 180
+</pre><h3>Mutant 621</h3><pre>--- tests/unit/test_flask_app_user_info.py
++++ tests/unit/test_flask_app_user_info.py
+@@ -26,7 +26,7 @@
+ @pytest.mark.skip
+ def add_one_row_to_db(tester):
+     post_data = {
+-        "user_height": 180
++        "user_height": 181
+     }
+     response = tester.post("/userInfo/", json=post_data, follow_redirects=True)
+     return response, post_data
+</pre><h3>Mutant 624</h3><pre>--- tests/unit/test_flask_app_user_info.py
++++ tests/unit/test_flask_app_user_info.py
+@@ -28,7 +28,7 @@
+     post_data = {
+         "user_height": 180
+     }
+-    response = tester.post("/userInfo/", json=post_data, follow_redirects=True)
++    response = tester.post("/userInfo/", json=post_data, follow_redirects=False)
+     return response, post_data
+ 
+ 
+</pre><h3>Mutant 630</h3><pre>--- tests/unit/test_flask_app_user_info.py
++++ tests/unit/test_flask_app_user_info.py
+@@ -38,7 +38,7 @@
+ 
+ 
+ def test_user_info_post_400_no_body(tester):
+-    response = tester.post("/userInfo/", json={}, follow_redirects=True)
++    response = tester.post("/userInfo/", json={}, follow_redirects=False)
+     assert response.status_code == 400
+ 
+ 
+</pre><h3>Mutant 635</h3><pre>--- tests/unit/test_flask_app_user_info.py
++++ tests/unit/test_flask_app_user_info.py
+@@ -44,7 +44,7 @@
+ 
+ def test_user_info_post_400_no_user_height(tester):
+     response = tester.post("/userInfo/", json={
+-        "other_data": 100
++        "XXother_dataXX": 100
+     }, follow_redirects=True)
+     assert response.status_code == 400
+ 
+</pre><h3>Mutant 636</h3><pre>--- tests/unit/test_flask_app_user_info.py
++++ tests/unit/test_flask_app_user_info.py
+@@ -44,7 +44,7 @@
+ 
+ def test_user_info_post_400_no_user_height(tester):
+     response = tester.post("/userInfo/", json={
+-        "other_data": 100
++        "other_data": 101
+     }, follow_redirects=True)
+     assert response.status_code == 400
+ 
+</pre><h3>Mutant 637</h3><pre>--- tests/unit/test_flask_app_user_info.py
++++ tests/unit/test_flask_app_user_info.py
+@@ -45,7 +45,7 @@
+ def test_user_info_post_400_no_user_height(tester):
+     response = tester.post("/userInfo/", json={
+         "other_data": 100
+-    }, follow_redirects=True)
++    }, follow_redirects=False)
+     assert response.status_code == 400
+ 
+ 
+</pre><h3>Mutant 642</h3><pre>--- tests/unit/test_flask_app_user_info.py
++++ tests/unit/test_flask_app_user_info.py
+@@ -51,7 +51,7 @@
+ 
+ def test_user_info_post_400_bad_user_height(tester):
+     response = tester.post("/userInfo/", json={
+-        "user_height": 90
++        "XXuser_heightXX": 90
+     }, follow_redirects=True)
+     assert response.status_code == 400
+     response = tester.post("/userInfo/", json={
+</pre><h3>Mutant 643</h3><pre>--- tests/unit/test_flask_app_user_info.py
++++ tests/unit/test_flask_app_user_info.py
+@@ -51,7 +51,7 @@
+ 
+ def test_user_info_post_400_bad_user_height(tester):
+     response = tester.post("/userInfo/", json={
+-        "user_height": 90
++        "user_height": 91
+     }, follow_redirects=True)
+     assert response.status_code == 400
+     response = tester.post("/userInfo/", json={
+</pre><h3>Mutant 644</h3><pre>--- tests/unit/test_flask_app_user_info.py
++++ tests/unit/test_flask_app_user_info.py
+@@ -52,7 +52,7 @@
+ def test_user_info_post_400_bad_user_height(tester):
+     response = tester.post("/userInfo/", json={
+         "user_height": 90
+-    }, follow_redirects=True)
++    }, follow_redirects=False)
+     assert response.status_code == 400
+     response = tester.post("/userInfo/", json={
+         "user_height": 260
+</pre><h3>Mutant 649</h3><pre>--- tests/unit/test_flask_app_user_info.py
++++ tests/unit/test_flask_app_user_info.py
+@@ -55,7 +55,7 @@
+     }, follow_redirects=True)
+     assert response.status_code == 400
+     response = tester.post("/userInfo/", json={
+-        "user_height": 260
++        "XXuser_heightXX": 260
+     }, follow_redirects=True)
+     assert response.status_code == 400
+     response = tester.post("/userInfo/", json={
+</pre><h3>Mutant 650</h3><pre>--- tests/unit/test_flask_app_user_info.py
++++ tests/unit/test_flask_app_user_info.py
+@@ -55,7 +55,7 @@
+     }, follow_redirects=True)
+     assert response.status_code == 400
+     response = tester.post("/userInfo/", json={
+-        "user_height": 260
++        "user_height": 261
+     }, follow_redirects=True)
+     assert response.status_code == 400
+     response = tester.post("/userInfo/", json={
+</pre><h3>Mutant 651</h3><pre>--- tests/unit/test_flask_app_user_info.py
++++ tests/unit/test_flask_app_user_info.py
+@@ -56,7 +56,7 @@
+     assert response.status_code == 400
+     response = tester.post("/userInfo/", json={
+         "user_height": 260
+-    }, follow_redirects=True)
++    }, follow_redirects=False)
+     assert response.status_code == 400
+     response = tester.post("/userInfo/", json={
+         "user_height": "wrong"
+</pre><h3>Mutant 656</h3><pre>--- tests/unit/test_flask_app_user_info.py
++++ tests/unit/test_flask_app_user_info.py
+@@ -59,7 +59,7 @@
+     }, follow_redirects=True)
+     assert response.status_code == 400
+     response = tester.post("/userInfo/", json={
+-        "user_height": "wrong"
++        "XXuser_heightXX": "wrong"
+     }, follow_redirects=True)
+     assert response.status_code == 400
+ 
+</pre><h3>Mutant 657</h3><pre>--- tests/unit/test_flask_app_user_info.py
++++ tests/unit/test_flask_app_user_info.py
+@@ -59,7 +59,7 @@
+     }, follow_redirects=True)
+     assert response.status_code == 400
+     response = tester.post("/userInfo/", json={
+-        "user_height": "wrong"
++        "user_height": "XXwrongXX"
+     }, follow_redirects=True)
+     assert response.status_code == 400
+ 
+</pre><h3>Mutant 658</h3><pre>--- tests/unit/test_flask_app_user_info.py
++++ tests/unit/test_flask_app_user_info.py
+@@ -60,7 +60,7 @@
+     assert response.status_code == 400
+     response = tester.post("/userInfo/", json={
+         "user_height": "wrong"
+-    }, follow_redirects=True)
++    }, follow_redirects=False)
+     assert response.status_code == 400
+ 
+ 
+</pre><h3>Mutant 662</h3><pre>--- tests/unit/test_flask_app_user_info.py
++++ tests/unit/test_flask_app_user_info.py
+@@ -65,7 +65,7 @@
+ 
+ 
+ def test_user_info_get_404(tester):
+-    response = tester.get("/userInfo/")
++    response = tester.get("XX/userInfo/XX")
+     assert response.status_code == 404
+ 
+ 
+</pre><h3>Mutant 672</h3><pre>--- tests/unit/test_flask_app_user_info.py
++++ tests/unit/test_flask_app_user_info.py
+@@ -74,7 +74,7 @@
+     response = tester.get("/userInfo/")
+     assert response.status_code == 200
+     data = json.loads(response.data)
+-    print(data)
++    print(None)
+     assert data["id"] == 1 \
+            and data["user_height"] == post_data["user_height"] \
+            and data["chair_height"] == utils.chair_height_formula(post_data["user_height"]) \
+</pre><h3>Mutant 685</h3><pre>--- tests/unit/test_flask_app_user_info.py
++++ tests/unit/test_flask_app_user_info.py
+@@ -75,8 +75,7 @@
+     assert response.status_code == 200
+     data = json.loads(response.data)
+     print(data)
+-    assert data["id"] == 1 \
+-           and data["user_height"] == post_data["user_height"] \
++    assert data["id"] == 1 or data["user_height"] == post_data["user_height"] \
+            and data["chair_height"] == utils.chair_height_formula(post_data["user_height"]) \
+            and data["desk_height"] == utils.desk_height_formula(post_data["user_height"])
+ 
+</pre><h2>Suspicious</h2>Mutants that made the test suite take longer, but otherwise seemed ok<h3>Mutant 639</h3><pre>--- tests/unit/test_flask_app_user_info.py
++++ tests/unit/test_flask_app_user_info.py
+@@ -46,7 +46,7 @@
+     response = tester.post("/userInfo/", json={
+         "other_data": 100
+     }, follow_redirects=True)
+-    assert response.status_code == 400
++    assert response.status_code != 400
+ 
+ 
+ def test_user_info_post_400_bad_user_height(tester):
+</pre></body></html>

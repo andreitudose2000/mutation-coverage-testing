@@ -1,0 +1,775 @@
+<html><body><h1>tests\integration\test_integration_tests.py</h1>Killed 150 out of 270 mutants<h2>Survived</h2>Survived mutation testing. These mutants show holes in your test suite.<h3>Mutant 2</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -11,7 +11,7 @@
+ @pytest.fixture()
+ def tester():
+     # creez un fisier nou temporar .sqlite unde va fi stocata baza de date
+-    db_fd, dbfile = tempfile.mkstemp(suffix=".sqlite")
++    db_fd, dbfile = tempfile.mkstemp(suffix="XX.sqliteXX")
+     app = create_app("flask_configurations.TestingConfig", db_file=dbfile)
+ 
+     # returnez clientul tester cu setarea de mai sus
+</pre><h3>Mutant 7</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -24,7 +24,6 @@
+     # sterg fisierul de pe disk
+     os.unlink(app.config['DATABASE'])
+ 
+-@pytest.mark.skip
+ def add_one_row_to_db(tester):
+     post_data = {
+         "user_height": 180
+</pre><h3>Mutant 9</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -27,7 +27,7 @@
+ @pytest.mark.skip
+ def add_one_row_to_db(tester):
+     post_data = {
+-        "user_height": 180
++        "user_height": 181
+     }
+     response = tester.post("/userInfo/", json=post_data, follow_redirects=True)
+     return response, post_data
+</pre><h3>Mutant 12</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -29,7 +29,7 @@
+     post_data = {
+         "user_height": 180
+     }
+-    response = tester.post("/userInfo/", json=post_data, follow_redirects=True)
++    response = tester.post("/userInfo/", json=post_data, follow_redirects=False)
+     return response, post_data
+ 
+ 
+</pre><h3>Mutant 15</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -35,7 +35,7 @@
+ 
+ def test_post_heat_check_heat_200(tester):
+     post_data = {
+-        "head_rest": 18,
++        "head_rest": 19,
+         "back_rest": 21,
+         "arm_rest": 23,
+         "bum_rest": 22
+</pre><h3>Mutant 19</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -37,7 +37,7 @@
+     post_data = {
+         "head_rest": 18,
+         "back_rest": 21,
+-        "arm_rest": 23,
++        "arm_rest": 24,
+         "bum_rest": 22
+     }
+     response = tester.post("/heat", json=post_data, follow_redirects=True)
+</pre><h3>Mutant 21</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -38,7 +38,7 @@
+         "head_rest": 18,
+         "back_rest": 21,
+         "arm_rest": 23,
+-        "bum_rest": 22
++        "bum_rest": 23
+     }
+     response = tester.post("/heat", json=post_data, follow_redirects=True)
+     assert response.status_code == 200
+</pre><h3>Mutant 31</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -43,7 +43,7 @@
+     response = tester.post("/heat", json=post_data, follow_redirects=True)
+     assert response.status_code == 200
+     assert json.loads(response.data) == {"message": "ok"}
+-    response1 = tester.get("/userInfo", follow_redirects=True)
++    response1 = tester.get("XX/userInfoXX", follow_redirects=True)
+     assert response1.status_code == 404
+     data = json.loads(response1.data)
+     print(data)
+</pre><h3>Mutant 36</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -45,7 +45,7 @@
+     assert json.loads(response.data) == {"message": "ok"}
+     response1 = tester.get("/userInfo", follow_redirects=True)
+     assert response1.status_code == 404
+-    data = json.loads(response1.data)
++    data = None
+     print(data)
+ 
+ 
+</pre><h3>Mutant 37</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -46,7 +46,7 @@
+     response1 = tester.get("/userInfo", follow_redirects=True)
+     assert response1.status_code == 404
+     data = json.loads(response1.data)
+-    print(data)
++    print(None)
+ 
+ 
+ 
+</pre><h3>Mutant 38</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -52,7 +52,7 @@
+ 
+ def test_post_heat_get_userInfo_redirect(tester):
+     post_data = {
+-        "head_rest": 18,
++        "XXhead_restXX": 18,
+         "back_rest": 21,
+         "arm_rest": 23,
+         "bum_rest": 22
+</pre><h3>Mutant 39</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -52,7 +52,7 @@
+ 
+ def test_post_heat_get_userInfo_redirect(tester):
+     post_data = {
+-        "head_rest": 18,
++        "head_rest": 19,
+         "back_rest": 21,
+         "arm_rest": 23,
+         "bum_rest": 22
+</pre><h3>Mutant 40</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -53,7 +53,7 @@
+ def test_post_heat_get_userInfo_redirect(tester):
+     post_data = {
+         "head_rest": 18,
+-        "back_rest": 21,
++        "XXback_restXX": 21,
+         "arm_rest": 23,
+         "bum_rest": 22
+     }
+</pre><h3>Mutant 41</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -53,7 +53,7 @@
+ def test_post_heat_get_userInfo_redirect(tester):
+     post_data = {
+         "head_rest": 18,
+-        "back_rest": 21,
++        "back_rest": 22,
+         "arm_rest": 23,
+         "bum_rest": 22
+     }
+</pre><h3>Mutant 42</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -54,7 +54,7 @@
+     post_data = {
+         "head_rest": 18,
+         "back_rest": 21,
+-        "arm_rest": 23,
++        "XXarm_restXX": 23,
+         "bum_rest": 22
+     }
+     response = tester.post("/heat", json=post_data)
+</pre><h3>Mutant 43</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -54,7 +54,7 @@
+     post_data = {
+         "head_rest": 18,
+         "back_rest": 21,
+-        "arm_rest": 23,
++        "arm_rest": 24,
+         "bum_rest": 22
+     }
+     response = tester.post("/heat", json=post_data)
+</pre><h3>Mutant 44</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -55,7 +55,7 @@
+         "head_rest": 18,
+         "back_rest": 21,
+         "arm_rest": 23,
+-        "bum_rest": 22
++        "XXbum_restXX": 22
+     }
+     response = tester.post("/heat", json=post_data)
+     assert response.status_code == 308
+</pre><h3>Mutant 45</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -55,7 +55,7 @@
+         "head_rest": 18,
+         "back_rest": 21,
+         "arm_rest": 23,
+-        "bum_rest": 22
++        "bum_rest": 23
+     }
+     response = tester.post("/heat", json=post_data)
+     assert response.status_code == 308
+</pre><h3>Mutant 46</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -51,12 +51,7 @@
+ 
+ 
+ def test_post_heat_get_userInfo_redirect(tester):
+-    post_data = {
+-        "head_rest": 18,
+-        "back_rest": 21,
+-        "arm_rest": 23,
+-        "bum_rest": 22
+-    }
++    post_data = None
+     response = tester.post("/heat", json=post_data)
+     assert response.status_code == 308
+     # assert json.loads(response.data) == {"message": "ok"}
+</pre><h3>Mutant 51</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -60,7 +60,7 @@
+     response = tester.post("/heat", json=post_data)
+     assert response.status_code == 308
+     # assert json.loads(response.data) == {"message": "ok"}
+-    response = tester.get("/userInfo", follow_redirects=True)
++    response = tester.get("XX/userInfoXX", follow_redirects=True)
+     assert response.status_code == 404
+ 
+ 
+</pre><h3>Mutant 57</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -66,7 +66,7 @@
+ 
+ def test_user_info_heat_get_200(tester):
+     post_data = {
+-        "head_rest": 18,
++        "head_rest": 19,
+         "back_rest": 21,
+         "arm_rest": 23,
+         "bum_rest": "twenty two"
+</pre><h3>Mutant 59</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -67,7 +67,7 @@
+ def test_user_info_heat_get_200(tester):
+     post_data = {
+         "head_rest": 18,
+-        "back_rest": 21,
++        "back_rest": 22,
+         "arm_rest": 23,
+         "bum_rest": "twenty two"
+     }
+</pre><h3>Mutant 61</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -68,7 +68,7 @@
+     post_data = {
+         "head_rest": 18,
+         "back_rest": 21,
+-        "arm_rest": 23,
++        "arm_rest": 24,
+         "bum_rest": "twenty two"
+     }
+     response = tester.post("/heat", json=post_data, follow_redirects=True)
+</pre><h3>Mutant 63</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -69,7 +69,7 @@
+         "head_rest": 18,
+         "back_rest": 21,
+         "arm_rest": 23,
+-        "bum_rest": "twenty two"
++        "bum_rest": "XXtwenty twoXX"
+     }
+     response = tester.post("/heat", json=post_data, follow_redirects=True)
+     assert response.status_code == 400
+</pre><h3>Mutant 80</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -78,7 +78,7 @@
+     response1 = tester.get("/userInfo", follow_redirects=True)
+     assert response1.status_code == 200
+     data = json.loads(response1.data)
+-    print(data)
++    print(None)
+     assert data["id"] == 1 \
+            and data["user_height"] == post_data["user_height"] \
+            and data["chair_height"] == utils.chair_height_formula(post_data["user_height"]) \
+</pre><h3>Mutant 93</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -79,8 +79,7 @@
+     assert response1.status_code == 200
+     data = json.loads(response1.data)
+     print(data)
+-    assert data["id"] == 1 \
+-           and data["user_height"] == post_data["user_height"] \
++    assert data["id"] == 1 or data["user_height"] == post_data["user_height"] \
+            and data["chair_height"] == utils.chair_height_formula(post_data["user_height"]) \
+            and data["desk_height"] == utils.desk_height_formula(post_data["user_height"])
+ 
+</pre><h3>Mutant 94</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -87,7 +87,7 @@
+ 
+ def test_post_heat_post_weight_redirect(tester):
+     post_data = {
+-        "head_rest": 18,
++        "XXhead_restXX": 18,
+         "back_rest": 21,
+         "arm_rest": 23,
+         "bum_rest": 22
+</pre><h3>Mutant 95</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -87,7 +87,7 @@
+ 
+ def test_post_heat_post_weight_redirect(tester):
+     post_data = {
+-        "head_rest": 18,
++        "head_rest": 19,
+         "back_rest": 21,
+         "arm_rest": 23,
+         "bum_rest": 22
+</pre><h3>Mutant 96</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -88,7 +88,7 @@
+ def test_post_heat_post_weight_redirect(tester):
+     post_data = {
+         "head_rest": 18,
+-        "back_rest": 21,
++        "XXback_restXX": 21,
+         "arm_rest": 23,
+         "bum_rest": 22
+     }
+</pre><h3>Mutant 97</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -88,7 +88,7 @@
+ def test_post_heat_post_weight_redirect(tester):
+     post_data = {
+         "head_rest": 18,
+-        "back_rest": 21,
++        "back_rest": 22,
+         "arm_rest": 23,
+         "bum_rest": 22
+     }
+</pre><h3>Mutant 98</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -89,7 +89,7 @@
+     post_data = {
+         "head_rest": 18,
+         "back_rest": 21,
+-        "arm_rest": 23,
++        "XXarm_restXX": 23,
+         "bum_rest": 22
+     }
+     response = tester.post("/heat", json=post_data)
+</pre><h3>Mutant 99</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -89,7 +89,7 @@
+     post_data = {
+         "head_rest": 18,
+         "back_rest": 21,
+-        "arm_rest": 23,
++        "arm_rest": 24,
+         "bum_rest": 22
+     }
+     response = tester.post("/heat", json=post_data)
+</pre><h3>Mutant 100</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -90,7 +90,7 @@
+         "head_rest": 18,
+         "back_rest": 21,
+         "arm_rest": 23,
+-        "bum_rest": 22
++        "XXbum_restXX": 22
+     }
+     response = tester.post("/heat", json=post_data)
+     assert response.status_code == 308
+</pre><h3>Mutant 101</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -90,7 +90,7 @@
+         "head_rest": 18,
+         "back_rest": 21,
+         "arm_rest": 23,
+-        "bum_rest": 22
++        "bum_rest": 23
+     }
+     response = tester.post("/heat", json=post_data)
+     assert response.status_code == 308
+</pre><h3>Mutant 112</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -101,7 +101,7 @@
+     add_weight_to_db(90)
+     add_weight_to_db(100)
+     now = datetime.now()
+-    response1 = tester.get("/weight/history", follow_redirects=True)
++    response1 = tester.get("/weight/history", follow_redirects=False)
+     assert response1.status_code == 200
+     data = json.loads(response1.data)
+     assert isinstance(data, list)
+</pre><h3>Mutant 128</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -107,7 +107,7 @@
+     assert isinstance(data, list)
+     assert len(data) == 3
+     assert any(x["id"] == 1 and x["mass"] == 80
+-               and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
++               and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') <= timedelta(0, 5) for x in data)
+     assert any(x["id"] == 2 and x["mass"] == 90
+                and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
+     assert any(x["id"] == 3 and x["mass"] == 100
+</pre><h3>Mutant 129</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -107,7 +107,7 @@
+     assert isinstance(data, list)
+     assert len(data) == 3
+     assert any(x["id"] == 1 and x["mass"] == 80
+-               and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
++               and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(1, 5) for x in data)
+     assert any(x["id"] == 2 and x["mass"] == 90
+                and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
+     assert any(x["id"] == 3 and x["mass"] == 100
+</pre><h3>Mutant 130</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -107,7 +107,7 @@
+     assert isinstance(data, list)
+     assert len(data) == 3
+     assert any(x["id"] == 1 and x["mass"] == 80
+-               and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
++               and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 6) for x in data)
+     assert any(x["id"] == 2 and x["mass"] == 90
+                and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
+     assert any(x["id"] == 3 and x["mass"] == 100
+</pre><h3>Mutant 131</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -106,7 +106,7 @@
+     data = json.loads(response1.data)
+     assert isinstance(data, list)
+     assert len(data) == 3
+-    assert any(x["id"] == 1 and x["mass"] == 80
++    assert any(x["id"] == 1 or x["mass"] == 80
+                and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
+     assert any(x["id"] == 2 and x["mass"] == 90
+                and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
+</pre><h3>Mutant 141</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -109,7 +109,7 @@
+     assert any(x["id"] == 1 and x["mass"] == 80
+                and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
+     assert any(x["id"] == 2 and x["mass"] == 90
+-               and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
++               and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') <= timedelta(0, 5) for x in data)
+     assert any(x["id"] == 3 and x["mass"] == 100
+                and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
+ 
+</pre><h3>Mutant 142</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -109,7 +109,7 @@
+     assert any(x["id"] == 1 and x["mass"] == 80
+                and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
+     assert any(x["id"] == 2 and x["mass"] == 90
+-               and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
++               and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(1, 5) for x in data)
+     assert any(x["id"] == 3 and x["mass"] == 100
+                and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
+ 
+</pre><h3>Mutant 143</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -109,7 +109,7 @@
+     assert any(x["id"] == 1 and x["mass"] == 80
+                and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
+     assert any(x["id"] == 2 and x["mass"] == 90
+-               and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
++               and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 6) for x in data)
+     assert any(x["id"] == 3 and x["mass"] == 100
+                and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
+ 
+</pre><h3>Mutant 144</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -108,7 +108,7 @@
+     assert len(data) == 3
+     assert any(x["id"] == 1 and x["mass"] == 80
+                and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
+-    assert any(x["id"] == 2 and x["mass"] == 90
++    assert any(x["id"] == 2 or x["mass"] == 90
+                and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
+     assert any(x["id"] == 3 and x["mass"] == 100
+                and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
+</pre><h3>Mutant 154</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -111,7 +111,7 @@
+     assert any(x["id"] == 2 and x["mass"] == 90
+                and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
+     assert any(x["id"] == 3 and x["mass"] == 100
+-               and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
++               and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') <= timedelta(0, 5) for x in data)
+ 
+ 
+ def test_get_weight_post_heat_redirect(tester):
+</pre><h3>Mutant 155</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -111,7 +111,7 @@
+     assert any(x["id"] == 2 and x["mass"] == 90
+                and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
+     assert any(x["id"] == 3 and x["mass"] == 100
+-               and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
++               and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(1, 5) for x in data)
+ 
+ 
+ def test_get_weight_post_heat_redirect(tester):
+</pre><h3>Mutant 156</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -111,7 +111,7 @@
+     assert any(x["id"] == 2 and x["mass"] == 90
+                and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
+     assert any(x["id"] == 3 and x["mass"] == 100
+-               and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
++               and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 6) for x in data)
+ 
+ 
+ def test_get_weight_post_heat_redirect(tester):
+</pre><h3>Mutant 157</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -110,7 +110,7 @@
+                and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
+     assert any(x["id"] == 2 and x["mass"] == 90
+                and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
+-    assert any(x["id"] == 3 and x["mass"] == 100
++    assert any(x["id"] == 3 or x["mass"] == 100
+                and now - datetime.strptime(x['updated_on'], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5) for x in data)
+ 
+ 
+</pre><h3>Mutant 163</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -118,7 +118,7 @@
+     response = tester.get("/weight/history")
+     assert response.status_code == 200
+     post_data = {
+-        "head_rest": 18,
++        "head_rest": 19,
+         "back_rest": 21,
+         "arm_rest": 23,
+         "bum_rest": "twenty two"
+</pre><h3>Mutant 165</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -119,7 +119,7 @@
+     assert response.status_code == 200
+     post_data = {
+         "head_rest": 18,
+-        "back_rest": 21,
++        "back_rest": 22,
+         "arm_rest": 23,
+         "bum_rest": "twenty two"
+     }
+</pre><h3>Mutant 167</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -120,7 +120,7 @@
+     post_data = {
+         "head_rest": 18,
+         "back_rest": 21,
+-        "arm_rest": 23,
++        "arm_rest": 24,
+         "bum_rest": "twenty two"
+     }
+     response1 = tester.post("/heat", json=post_data, follow_redirects=True)
+</pre><h3>Mutant 169</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -121,7 +121,7 @@
+         "head_rest": 18,
+         "back_rest": 21,
+         "arm_rest": 23,
+-        "bum_rest": "twenty two"
++        "bum_rest": "XXtwenty twoXX"
+     }
+     response1 = tester.post("/heat", json=post_data, follow_redirects=True)
+     assert response1.status_code == 400
+</pre><h3>Mutant 184</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -131,7 +131,7 @@
+ def test_get_measure_get_history(tester):
+     response = tester.get("/weight/measure")
+     assert response.status_code == 200
+-    response1 = tester.get("/weight/history", follow_redirects=True)
++    response1 = tester.get("/weight/history", follow_redirects=False)
+     assert response1.status_code == 200
+ 
+ 
+</pre><h3>Mutant 200</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -142,7 +142,7 @@
+     status = sitting_status_manager.get_sitting_status()
+     assert status["id"] == 1
+     assert status["is_sitting"] == 1
+-    assert now - datetime.strptime(status["updated_on"], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5)
++    assert now - datetime.strptime(status["updated_on"], '%Y-%m-%d %H:%M:%S') <= timedelta(0, 5)
+     post_data = {
+         "head_rest": 18,
+         "back_rest": 21,
+</pre><h3>Mutant 201</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -142,7 +142,7 @@
+     status = sitting_status_manager.get_sitting_status()
+     assert status["id"] == 1
+     assert status["is_sitting"] == 1
+-    assert now - datetime.strptime(status["updated_on"], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5)
++    assert now - datetime.strptime(status["updated_on"], '%Y-%m-%d %H:%M:%S') < timedelta(1, 5)
+     post_data = {
+         "head_rest": 18,
+         "back_rest": 21,
+</pre><h3>Mutant 202</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -142,7 +142,7 @@
+     status = sitting_status_manager.get_sitting_status()
+     assert status["id"] == 1
+     assert status["is_sitting"] == 1
+-    assert now - datetime.strptime(status["updated_on"], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5)
++    assert now - datetime.strptime(status["updated_on"], '%Y-%m-%d %H:%M:%S') < timedelta(0, 6)
+     post_data = {
+         "head_rest": 18,
+         "back_rest": 21,
+</pre><h3>Mutant 204</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -144,7 +144,7 @@
+     assert status["is_sitting"] == 1
+     assert now - datetime.strptime(status["updated_on"], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5)
+     post_data = {
+-        "head_rest": 18,
++        "head_rest": 19,
+         "back_rest": 21,
+         "arm_rest": 23,
+         "bum_rest": "integration test"
+</pre><h3>Mutant 206</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -145,7 +145,7 @@
+     assert now - datetime.strptime(status["updated_on"], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5)
+     post_data = {
+         "head_rest": 18,
+-        "back_rest": 21,
++        "back_rest": 22,
+         "arm_rest": 23,
+         "bum_rest": "integration test"
+     }
+</pre><h3>Mutant 208</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -146,7 +146,7 @@
+     post_data = {
+         "head_rest": 18,
+         "back_rest": 21,
+-        "arm_rest": 23,
++        "arm_rest": 24,
+         "bum_rest": "integration test"
+     }
+     response1 = tester.post("/heat", json=post_data, follow_redirects=True)
+</pre><h3>Mutant 210</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -147,7 +147,7 @@
+         "head_rest": 18,
+         "back_rest": 21,
+         "arm_rest": 23,
+-        "bum_rest": "integration test"
++        "bum_rest": "XXintegration testXX"
+     }
+     response1 = tester.post("/heat", json=post_data, follow_redirects=True)
+     assert response1.status_code == 400
+</pre><h3>Mutant 232</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -161,7 +161,7 @@
+     status = sitting_status_manager.get_sitting_status()
+     assert status["id"] == 1
+     assert status["is_sitting"] == 1
+-    assert now - datetime.strptime(status["updated_on"], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5)
++    assert now - datetime.strptime(status["updated_on"], '%Y-%m-%d %H:%M:%S') <= timedelta(0, 5)
+     post_data = {
+         "head_rest": 18,
+         "back_rest": 21,
+</pre><h3>Mutant 233</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -161,7 +161,7 @@
+     status = sitting_status_manager.get_sitting_status()
+     assert status["id"] == 1
+     assert status["is_sitting"] == 1
+-    assert now - datetime.strptime(status["updated_on"], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5)
++    assert now - datetime.strptime(status["updated_on"], '%Y-%m-%d %H:%M:%S') < timedelta(1, 5)
+     post_data = {
+         "head_rest": 18,
+         "back_rest": 21,
+</pre><h3>Mutant 234</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -161,7 +161,7 @@
+     status = sitting_status_manager.get_sitting_status()
+     assert status["id"] == 1
+     assert status["is_sitting"] == 1
+-    assert now - datetime.strptime(status["updated_on"], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5)
++    assert now - datetime.strptime(status["updated_on"], '%Y-%m-%d %H:%M:%S') < timedelta(0, 6)
+     post_data = {
+         "head_rest": 18,
+         "back_rest": 21,
+</pre><h3>Mutant 236</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -163,7 +163,7 @@
+     assert status["is_sitting"] == 1
+     assert now - datetime.strptime(status["updated_on"], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5)
+     post_data = {
+-        "head_rest": 18,
++        "head_rest": 19,
+         "back_rest": 21,
+         "arm_rest": 23,
+         "bum_rest": 22
+</pre><h3>Mutant 238</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -164,7 +164,7 @@
+     assert now - datetime.strptime(status["updated_on"], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5)
+     post_data = {
+         "head_rest": 18,
+-        "back_rest": 21,
++        "back_rest": 22,
+         "arm_rest": 23,
+         "bum_rest": 22
+     }
+</pre><h3>Mutant 240</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -165,7 +165,7 @@
+     post_data = {
+         "head_rest": 18,
+         "back_rest": 21,
+-        "arm_rest": 23,
++        "arm_rest": 24,
+         "bum_rest": 22
+     }
+     response1 = tester.post("/heat", json=post_data, follow_redirects=True)
+</pre><h3>Mutant 242</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -166,7 +166,7 @@
+         "head_rest": 18,
+         "back_rest": 21,
+         "arm_rest": 23,
+-        "bum_rest": 22
++        "bum_rest": 23
+     }
+     response1 = tester.post("/heat", json=post_data, follow_redirects=True)
+     assert response1.status_code == 200
+</pre><h3>Mutant 264</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -179,7 +179,7 @@
+     status = sitting_status_manager.get_sitting_status()
+     assert status["id"] == 1
+     assert status["is_sitting"] == 1
+-    assert now - datetime.strptime(status["updated_on"], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5)
++    assert now - datetime.strptime(status["updated_on"], '%Y-%m-%d %H:%M:%S') <= timedelta(0, 5)
+     response = tester.get("/weight/istorie")
+     assert response.status_code == 404
+ 
+</pre><h3>Mutant 265</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -179,7 +179,7 @@
+     status = sitting_status_manager.get_sitting_status()
+     assert status["id"] == 1
+     assert status["is_sitting"] == 1
+-    assert now - datetime.strptime(status["updated_on"], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5)
++    assert now - datetime.strptime(status["updated_on"], '%Y-%m-%d %H:%M:%S') < timedelta(1, 5)
+     response = tester.get("/weight/istorie")
+     assert response.status_code == 404
+ 
+</pre><h3>Mutant 266</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -179,7 +179,7 @@
+     status = sitting_status_manager.get_sitting_status()
+     assert status["id"] == 1
+     assert status["is_sitting"] == 1
+-    assert now - datetime.strptime(status["updated_on"], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5)
++    assert now - datetime.strptime(status["updated_on"], '%Y-%m-%d %H:%M:%S') < timedelta(0, 6)
+     response = tester.get("/weight/istorie")
+     assert response.status_code == 404
+ 
+</pre><h3>Mutant 267</h3><pre>--- tests\integration\test_integration_tests.py
++++ tests\integration\test_integration_tests.py
+@@ -180,6 +180,6 @@
+     assert status["id"] == 1
+     assert status["is_sitting"] == 1
+     assert now - datetime.strptime(status["updated_on"], '%Y-%m-%d %H:%M:%S') < timedelta(0, 5)
+-    response = tester.get("/weight/istorie")
++    response = tester.get("XX/weight/istorieXX")
+     assert response.status_code == 404
+ 
+</pre></body></html>
