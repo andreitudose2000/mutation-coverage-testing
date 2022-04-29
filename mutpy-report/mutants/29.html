@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MutPy mutation report - mutation #29</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    
+<link href="http://alexgorbatchev.com/pub/sh/current/styles/shCore.css" rel="stylesheet" type="text/css" />
+<link href="http://alexgorbatchev.com/pub/sh/current/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    
+<script src="http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js" type="text/javascript"></script>
+<script src="http://alexgorbatchev.com/pub/sh/current/scripts/shBrushPython.js" type="text/javascript"></script>
+<script type="text/javascript">
+    SyntaxHighlighter.all();
+    window.setTimeout(function () {
+        
+        $('.line.number7').attr('title', 'COD');
+        
+    }, 0);
+</script>
+
+</head>
+<body>
+    <div class="container">
+        
+<div class="page-header">
+    <h1>Mutation #29</h1>
+</div>
+<h3>Details</h3>
+<ul>
+    <li>module - <code><module 'flask_app.sitting_status' from '/home/lblaga/Workspace/mutation-coverage-testing/./flask_app/sitting_status.py'></code></li>
+    <li><span class="label label-success">killed</span> by <code>tests/unit/test_flask_app_sitting_status.py::test_set_sitting_status</code></li>
+    
+    <li>duration - 0.202 s</li>
+    
+    
+    <li>tests run - 1</li>
+    
+</ul>
+
+<h3>Exception traceback</h3>
+<pre>tester = <FlaskClient <Flask 'flask_app'>>
+
+    def test_set_sitting_status(tester):
+        import flask_app.sitting_status as sitting_status_manager
+>       sitting_status_manager.set_sitting_status(True)
+
+tests/unit/test_flask_app_sitting_status.py:29: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+is_sitting = True
+
+>   ???
+E   ValueError
+
+flask_app.sitting_status:8: ValueError</pre>
+
+<h3>Mutations</h3>
+<ul>
+    
+    <li>COD - line 7</li>
+    
+</ul>
+<h3>Mutant</h3>
+<pre class="brush: python; first-line: 1; highlight: [7]; toolbar: false;">from flask_app.db import get_db
+from flask_app import utils
+
+flask_app = None
+
+def set_sitting_status(is_sitting):
+    if (isinstance(is_sitting, bool) or (isinstance(is_sitting, int) and is_sitting in [0, 1])):
+        raise ValueError
+    
+    db = get_db()
+    db.execute('INSERT INTO user_sitting (is_sitting) VALUES (?)', 
+        (int(is_sitting),))
+    db.commit()
+    print(f'## Updated in db table \'user_sitting\' - \'is_sitting\' = {is_sitting}')
+    return True
+
+
+def get_sitting_status():
+    db = get_db()
+    status = db.execute(
+        'SELECT id, is_sitting, updated_on         FROM user_sitting         ORDER BY updated_on DESC').fetchone()
+    
+    
+    
+    return utils.dict_from_row(status) if status is not None else None</pre>
+
+    </div>
+</body>
+</html>

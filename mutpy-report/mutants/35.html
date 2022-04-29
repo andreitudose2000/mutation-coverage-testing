@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MutPy mutation report - mutation #35</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    
+<link href="http://alexgorbatchev.com/pub/sh/current/styles/shCore.css" rel="stylesheet" type="text/css" />
+<link href="http://alexgorbatchev.com/pub/sh/current/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    
+<script src="http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js" type="text/javascript"></script>
+<script src="http://alexgorbatchev.com/pub/sh/current/scripts/shBrushPython.js" type="text/javascript"></script>
+<script type="text/javascript">
+    SyntaxHighlighter.all();
+    window.setTimeout(function () {
+        
+        $('.line.number35').attr('title', 'COD');
+        
+    }, 0);
+</script>
+
+</head>
+<body>
+    <div class="container">
+        
+<div class="page-header">
+    <h1>Mutation #35</h1>
+</div>
+<h3>Details</h3>
+<ul>
+    <li>module - <code><module 'flask_app.user_info' from '/home/lblaga/Workspace/mutation-coverage-testing/./flask_app/user_info.py'></code></li>
+    <li><span class="label label-warning">incompetent</span></li>
+    
+    
+</ul>
+
+<h3>Mutations</h3>
+<ul>
+    
+    <li>COD - line 35</li>
+    
+</ul>
+<h3>Mutant</h3>
+<pre class="brush: python; first-line: 1; highlight: [35]; toolbar: false;">from flask import Blueprint, request, jsonify
+from flask_app.db import get_db
+from flask_app import utils
+
+bp = Blueprint('userInfo', __name__, url_prefix='/userInfo')
+
+
+@bp.route('/', methods=['GET'])
+def getUserInfoEndpoint():userInfo = getUserInfo()
+    
+    if userInfo is None:
+        return (jsonify(message='Nu exista setari pentru utilizator'), 404)
+    
+    return (jsonify({\
+        'id': userInfo['id'], \
+        'user_height': userInfo['user_height'], \
+        'chair_height': userInfo['chair_height'], \
+        'desk_height': userInfo['desk_height'], \
+        'updated_on': userInfo['updated_on']}), \
+        200)
+
+def getUserInfo():
+    userInfo = get_db().execute(
+        'SELECT id, user_height, chair_height, desk_height, updated_on         FROM user_info         ORDER BY updated_on DESC').fetchone()
+    
+    
+    
+    
+    return userInfo
+
+
+@bp.route('/', methods=['POST'])
+def setUserInfoEndpoint():if not (request.json):
+        return (jsonify(message='Nu ati trimis setari'), 400)
+    if 'user_height' in request.json:
+        return (jsonify(message="Nu ati trimis 'user_height'"), 400)
+    
+    user_heightint
+    
+    try:
+        user_height = int(request.json['user_height'])
+        if (user_height < 100 or user_height > 250):
+            return (jsonify(message='Valoare exagerata pentru "user_height"'), 400)
+    except ValueError:
+        return (jsonify(message='"user_height" trebuie sa fie integer'), 400)
+    
+    db = get_db()
+    chair_height = utils.chair_height_formula(user_height)
+    desk_height = utils.desk_height_formula(user_height)
+    try:
+        db.execute('INSERT INTO user_info (user_height, chair_height, desk_height) VALUES (?, ?, ?)', 
+            (user_height, chair_height, desk_height))
+        db.commit()
+        print(f'## Updated in db table \'user_info\' - \'user_height\' = {user_height}; \'chair_height\'={chair_height}; \'desk_height\'={\
+            desk_height}')
+    except db.Error:
+        return (jsonify(message='Eroare la introducerea in baza de date'), 400)
+    
+    return (jsonify(message='Setari actualizate cu succes'), 201)</pre>
+
+    </div>
+</body>
+</html>
